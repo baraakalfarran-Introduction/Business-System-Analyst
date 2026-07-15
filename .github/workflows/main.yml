@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baraa Alfarran — Business Systems Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ECEEF0; --paper-2:#E4E7EA; --card:#FFFFFF;
+    --ink:#0F141A; --ink-soft:#4C5862; --line:#CDD3D8;
+    --panel:#0D1621; --panel-ink:#C4D0DA; --panel-dim:#7C8B98;
+    --accent:#1E7A63; --accent-lit:#34C39C; --accent-deep:#12513F;
+    --shadow:0 1px 2px rgba(15,20,26,.05),0 12px 34px -14px rgba(15,20,26,.22);
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --disp:'Space Grotesk',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif;
+    --ar:'IBM Plex Sans Arabic',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
+    font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  /* Arabic mode fonts */
+  body.ar{font-family:var(--ar)}
+  body.ar h1,body.ar h2,body.ar h3,body.ar .sys .nm,body.ar .step .t,body.ar .shot-h,
+  body.ar .eyebrow,body.ar .metric .k,body.ar .tag,body.ar .console-head,body.ar .sys .st,
+  body.ar .step .n,body.ar .note,body.ar .nav,body.ar .brand,body.ar .cta,body.ar .clist .lbl,
+  body.ar .frame-url{font-family:var(--ar)}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 28px}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:500}
+  body.ar .eyebrow{letter-spacing:0;font-weight:600}
+
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(236,238,240,.82);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .row{display:flex;align-items:center;justify-content:space-between;height:56px}
+  .brand{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--ink)}
+  .brand b{color:var(--accent);font-weight:500}
+  .nav{display:flex;gap:24px;align-items:center;font-family:var(--mono);font-size:.76rem;letter-spacing:.04em}
+  .nav a{color:var(--ink-soft);transition:color .2s}
+  .nav a:hover{color:var(--accent)}
+  .nav .li{color:var(--ink);border-bottom:1px solid var(--accent);padding-bottom:2px}
+  .langbtn{font-family:var(--mono);font-size:.72rem;color:var(--accent);border:1px solid var(--accent);
+    background:transparent;border-radius:6px;padding:4px 10px;cursor:pointer;transition:.2s}
+  .langbtn:hover{background:var(--accent);color:#fff}
+  @media(max-width:680px){.nav a:not(.li){display:none}}
+
+  .hero{background:var(--panel);color:var(--panel-ink);
+    background-image:radial-gradient(120% 90% at 88% -10%,rgba(52,195,156,.10),transparent 60%);
+    border-bottom:1px solid #08101a}
+  .hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;padding:74px 0 78px;align-items:center}
+  @media(max-width:860px){.hero .grid{grid-template-columns:1fr;gap:40px;padding:56px 0 60px}}
+  .hero .eyebrow{color:var(--accent-lit)}
+  .hero h1{font-family:var(--disp);font-weight:600;color:#F3F6F8;
+    font-size:clamp(2.3rem,5.4vw,4rem);line-height:1.04;letter-spacing:-.02em;margin:.5em 0 .4em}
+  body.ar .hero h1{letter-spacing:0;line-height:1.15}
+  .hero h1 em{font-style:normal;color:var(--accent-lit)}
+  .hero .lede{color:var(--panel-dim);max-width:36ch;font-size:1.02rem}
+  .hero .who{margin-top:26px;font-family:var(--mono);font-size:.78rem;color:var(--panel-dim);display:flex;flex-wrap:wrap;gap:6px 14px}
+  body.ar .hero .who{font-family:var(--ar)}
+  .hero .who span{color:var(--panel-ink)}
+
+  .console{background:linear-gradient(180deg,#0F1B29,#0C1420);border:1px solid #1d3247;
+    border-radius:12px;padding:16px;box-shadow:0 24px 60px -30px rgba(0,0,0,.7)}
+  .console-head{display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--panel-dim);padding:2px 4px 12px;border-bottom:1px solid #1b2d40}
+  body.ar .console-head{letter-spacing:0}
+  .sys{display:flex;align-items:center;gap:13px;padding:14px 6px;border-bottom:1px solid #16273a}
+  .sys:last-child{border-bottom:0}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .dot.live{background:var(--accent-lit);animation:pulse 2.4s infinite}
+  .dot.idle{background:#3a4b5c}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,195,156,.5)}70%{box-shadow:0 0 0 8px rgba(52,195,156,0)}100%{box-shadow:0 0 0 0 rgba(52,195,156,0)}}
+  .sys .nm{font-family:var(--disp);font-weight:500;font-size:.98rem;color:#EAF0F4;flex:1;min-width:0}
+  .sys .st{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--panel-dim)}
+  body.ar .sys .st{letter-spacing:0}
+  .sys .st.on{color:var(--accent-lit)}
+  .sys a.open{font-family:var(--mono);font-size:.68rem;color:var(--accent-lit);border:1px solid #234a3d;padding:4px 9px;border-radius:6px;transition:.2s}
+  .sys a.open:hover{background:var(--accent-deep);border-color:var(--accent)}
+
+  .metrics{border-bottom:1px solid var(--line);background:var(--paper)}
+  .metrics .r{display:grid;grid-template-columns:repeat(5,1fr)}
+  @media(max-width:760px){.metrics .r{grid-template-columns:repeat(2,1fr)}}
+  .metric{padding:26px 20px 24px;border-inline-end:1px solid var(--line)}
+  .metric:last-child{border-inline-end:0}
+  @media(max-width:760px){.metric{border-bottom:1px solid var(--line)}}
+  .metric .v{font-family:var(--disp);font-weight:600;font-size:1.9rem;letter-spacing:-.02em;color:var(--ink)}
+  .metric .v small{color:var(--accent);font-size:1.1rem}
+  .metric .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-top:6px}
+  body.ar .metric .k{letter-spacing:0}
+
+  section{padding:76px 0}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+  .sec-head h2{font-family:var(--disp);font-weight:600;font-size:1.7rem;letter-spacing:-.01em;margin:0}
+  .sec-head .idx{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.14em}
+  .sec-head .ln{flex:1;height:1px;background:var(--line)}
+
+  .system{display:grid;grid-template-columns:1fr 1.02fr;gap:44px;align-items:center;padding:34px 0;border-top:1px solid var(--line)}
+  .system:first-of-type{border-top:0}
+  @media(max-width:860px){.system{grid-template-columns:1fr;gap:26px}}
+  .system.flip .info{order:2}
+  @media(max-width:860px){.system.flip .info{order:0}}
+  .tag{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);border:1px solid var(--accent);border-radius:100px;padding:3px 11px;margin-bottom:16px}
+  body.ar .tag{letter-spacing:0}
+  .tag.int{color:var(--ink-soft);border-color:var(--line)}
+  .system h3{font-family:var(--disp);font-weight:600;font-size:1.42rem;letter-spacing:-.01em;margin:0 0 8px}
+  .system .desc{color:var(--ink-soft);margin:0 0 18px;max-width:46ch}
+  .role{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:9px}
+  .role li{position:relative;padding-inline-start:20px;font-size:.95rem}
+  .role li::before{content:"";position:absolute;inset-inline-start:0;top:.62em;width:8px;height:1px;background:var(--accent)}
+  .role li b{font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+  .chip{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);background:var(--paper-2);border:1px solid var(--line);border-radius:6px;padding:4px 9px}
+  .cta{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.78rem;letter-spacing:.03em;
+    color:#fff;background:var(--accent);padding:11px 18px;border-radius:8px;transition:.2s;border:1px solid var(--accent)}
+  body.ar .cta{letter-spacing:0}
+  .cta:hover{background:var(--accent-deep)}
+  .cta .arw{transition:transform .2s}
+  .cta:hover .arw{transform:translate(3px,-3px)}
+  .cta.ghost{color:var(--ink-soft);background:transparent;border-color:var(--line);cursor:default}
+
+  .frame{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+  .frame-bar{display:flex;align-items:center;gap:8px;padding:11px 14px;background:var(--paper-2);border-bottom:1px solid var(--line)}
+  .frame-bar i{width:9px;height:9px;border-radius:50%;background:#cfd5da;display:block}
+  .frame-url{margin-inline-start:8px;font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);direction:ltr;
+    background:var(--card);border:1px solid var(--line);border-radius:6px;padding:4px 10px;flex:1;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .shot{padding:20px;min-height:230px;
+    background:linear-gradient(var(--paper-2) 1px,transparent 1px),linear-gradient(90deg,var(--paper-2) 1px,transparent 1px);
+    background-size:22px 22px;background-color:#F7F9FA}
+  .shot .shot-h{font-family:var(--disp);font-weight:600;font-size:1rem;margin-bottom:3px}
+  .shot .shot-s{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+  body.ar .shot .shot-s{letter-spacing:0}
+  .mods{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .mod{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:.82rem;display:flex;align-items:center;gap:9px}
+  .mod .mk{font-family:var(--mono);font-size:.62rem;color:var(--accent);flex:none}
+  .note{margin-top:14px;font-family:var(--mono);font-size:.63rem;color:var(--panel-dim);letter-spacing:.02em}
+
+  .process{background:var(--panel);color:var(--panel-ink)}
+  .process .sec-head h2{color:#F3F6F8}
+  .process .sec-head .ln{background:#1c2e42}
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#1a2b3e;border:1px solid #1a2b3e;border-radius:12px;overflow:hidden}
+  @media(max-width:760px){.steps{grid-template-columns:1fr 1fr}}
+  .step{background:var(--panel);padding:22px 18px}
+  .step .n{font-family:var(--mono);font-size:.7rem;color:var(--accent-lit);letter-spacing:.14em}
+  .step .t{font-family:var(--disp);font-weight:600;font-size:1.05rem;color:#EAF0F4;margin:10px 0 6px}
+  .step .d{font-size:.82rem;color:var(--panel-dim)}
+
+  .contact{padding-bottom:90px}
+  .card-c{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:44px;box-shadow:var(--shadow);
+    display:grid;grid-template-columns:1.2fr 1fr;gap:36px;align-items:center}
+  @media(max-width:720px){.card-c{grid-template-columns:1fr;padding:32px;gap:26px}}
+  .card-c h2{font-family:var(--disp);font-weight:600;font-size:1.7rem;margin:.2em 0 .3em;letter-spacing:-.01em}
+  .card-c p{color:var(--ink-soft);margin:0;max-width:40ch}
+  .clist{display:grid;gap:2px}
+  .clist a,.clist span{display:flex;justify-content:space-between;gap:16px;padding:13px 2px;border-bottom:1px solid var(--line);font-size:.92rem;transition:.2s}
+  .clist a:hover{color:var(--accent);padding-inline-start:6px}
+  .clist .lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+  body.ar .clist .lbl{letter-spacing:0}
+  .clist .val{direction:ltr;unicode-bidi:plaintext}
+  .foot{padding:26px 0 40px;font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid var(--line)}
+  body.ar .foot{font-family:var(--ar)}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap row">
+    <div class="brand" data-en="BARAA&nbsp;ALFARRAN <b>// BSA</b>" data-ar="براء&nbsp;الفرّان <b>// محلل نظم</b>">BARAA&nbsp;ALFARRAN <b>// BSA</b></div>
+    <nav class="nav">
+      <a href="#systems" class="li" data-en="Systems" data-ar="الأنظمة">Systems</a>
+      <a href="#process" data-en="Process" data-ar="المنهجية">Process</a>
+      <a href="#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      <a href="https://www.linkedin.com/in/baraa-alfarran-98b0731b3" target="_blank" rel="noopener" data-en="LinkedIn ↗" data-ar="لينكدإن ↗">LinkedIn ↗</a>
+      <button class="langbtn" id="langBtn" onclick="toggleLang()" aria-label="Switch language">ع</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" style="padding:0">
+  <div class="wrap grid">
+    <div>
+      <span class="eyebrow" data-en="Business Systems Analyst · Jeddah, KSA" data-ar="محلل نظم أعمال · جدة، السعودية">Business Systems Analyst · Jeddah, KSA</span>
+      <h1 data-en="I define the requirements,<br>then I <em>build the system.</em>" data-ar="أحلّل المتطلبات،<br>ثم <em>أبني النظام.</em>">I define the requirements,<br>then I <em>build the system.</em></h1>
+      <p class="lede" data-en="Five-plus years turning operational needs into working internal platforms — discovery and BRDs through build, UAT, and go-live." data-ar="أكثر من 5 سنوات في تحويل الاحتياجات التشغيلية إلى منصّات داخلية شغّالة — من الاستكشاف وBRD حتى البناء وUAT والإطلاق.">Five-plus years turning operational needs into working internal platforms — discovery and BRDs through build, UAT, and go-live.</p>
+      <div class="who" data-en="<span>Requirements → Systems</span> · <span>Apps Script</span> · <span>Power BI</span> · <span>CMMS</span>" data-ar="<span>متطلبات → أنظمة</span> · <span>Apps Script</span> · <span>Power BI</span> · <span>CMMS</span>"><span>Requirements → Systems</span> · <span>Apps Script</span> · <span>Power BI</span> · <span>CMMS</span></div>
+    </div>
+    <div class="console" aria-label="Systems status">
+      <div class="console-head"><span data-en="Systems · status" data-ar="الأنظمة · الحالة">Systems · status</span><span data-en="3 shipped" data-ar="3 منصّات">3 shipped</span></div>
+      <div class="sys">
+        <span class="dot live"></span>
+        <span class="nm" data-en="Training Management" data-ar="إدارة التدريب">Training Management</span>
+        <span class="st on" data-en="Live" data-ar="مباشر">Live</span>
+        <a class="open" href="https://bahraacademy-afk.github.io/bahra-platform/" target="_blank" rel="noopener" data-en="open ↗" data-ar="فتح ↗">open ↗</a>
+      </div>
+      <div class="sys">
+        <span class="dot live"></span>
+        <span class="nm" data-en="Export Incentives" data-ar="حوافز الصادرات">Export Incentives</span>
+        <span class="st on" data-en="Live" data-ar="مباشر">Live</span>
+        <a class="open" href="https://lgcrbahraelectric-source.github.io/LCGR.BAHRA/" target="_blank" rel="noopener" data-en="open ↗" data-ar="فتح ↗">open ↗</a>
+      </div>
+      <div class="sys">
+        <span class="dot idle"></span>
+        <span class="nm" data-en="CMMS Deployment" data-ar="تطبيق CMMS">CMMS Deployment</span>
+        <span class="st" data-en="Internal" data-ar="داخلي">Internal</span>
+        <span class="st" style="opacity:.5">eMaint</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="metrics">
+  <div class="wrap r">
+    <div class="metric"><div class="v">3</div><div class="k" data-en="Platforms shipped" data-ar="منصّات منجزة">Platforms shipped</div></div>
+    <div class="metric"><div class="v">11,000<small>+</small></div><div class="k" data-en="Records analyzed" data-ar="سجل تم تحليله">Records analyzed</div></div>
+    <div class="metric"><div class="v">10</div><div class="k" data-en="Export services digitized" data-ar="خدمات صادرات رقمنة">Export services digitized</div></div>
+    <div class="metric"><div class="v"><small>~</small>90<small>%</small></div><div class="k" data-en="Paper work-orders cut" data-ar="تقليل الأوامر الورقية">Paper work-orders cut</div></div>
+    <div class="metric"><div class="v">100<small>%</small></div><div class="k" data-en="Airport records digitized" data-ar="رقمنة سجلات المطار">Airport records digitized</div></div>
+  </div>
+</div>
+
+<section id="systems" class="wrap">
+  <div class="sec-head reveal"><span class="idx">01</span><h2 data-en="Systems I built" data-ar="أنظمة بنيتها">Systems I built</h2><span class="ln"></span></div>
+
+  <div class="system reveal">
+    <div class="info">
+      <span class="tag" data-en="Training" data-ar="تدريب">Training</span>
+      <h3 data-en="Training Management Platform" data-ar="منصة إدارة التدريب">Training Management Platform</h3>
+      <p class="desc" data-en="A three-portal academic system — trainee, trainer, admin — running enrolment, attendance, GPA, and official letters from one place." data-ar="نظام أكاديمي بثلاث بوابات — متدرّب، مدرّب، إداري — يدير التسجيل والحضور والمعدّل والخطابات الرسمية من مكان واحد.">A three-portal academic system — trainee, trainer, admin — running enrolment, attendance, GPA, and official letters from one place.</p>
+      <ul class="role">
+        <li data-en="Owned <b>discovery, requirements (BRD, user stories), build, and UAT</b>." data-ar="تملّكت <b>الاستكشاف، المتطلبات (BRD وقصص المستخدم)، البناء، وUAT</b>."><b>Owned discovery, requirements (BRD, user stories), build, and UAT</b>.</li>
+        <li data-en="Days-based attendance with automatic deprivation rules and GPA calculation." data-ar="نظام حضور بالأيام مع احتساب الحرمان تلقائياً وحساب المعدّل.">Days-based attendance with automatic deprivation rules and GPA calculation.</li>
+        <li data-en="Replaced manual administrative tracking across the academy." data-ar="ألغى التتبّع الإداري اليدوي في الأكاديمية.">Replaced manual administrative tracking across the academy.</li>
+      </ul>
+      <div class="chips"><span class="chip">Google Apps Script</span><span class="chip">Sheets (DB)</span><span class="chip">HTML / JS</span><span class="chip">RTL</span><span class="chip">Auth</span></div>
+      <a class="cta" href="https://bahraacademy-afk.github.io/bahra-platform/" target="_blank" rel="noopener"><span data-en="View live" data-ar="عرض مباشر">View live</span> <span class="arw">↗</span></a>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><i></i><i></i><i></i><span class="frame-url">bahraacademy-afk.github.io/bahra-platform</span></div>
+      <!-- To use a real screenshot: replace this whole .shot div with  <img src="training.png" alt="Training platform" style="width:100%;display:block"> -->
+      <div class="shot">
+        <div class="shot-h" data-en="Academic Platform" data-ar="منصة أكاديمية">Academic Platform</div>
+        <div class="shot-s" data-en="Trainee · Trainer · Admin portals" data-ar="بوابات: متدرّب · مدرّب · إداري">Trainee · Trainer · Admin portals</div>
+        <div class="mods">
+          <div class="mod"><span class="mk">01</span><span data-en="Attendance (days-based)" data-ar="الحضور (بالأيام)">Attendance (days-based)</span></div>
+          <div class="mod"><span class="mk">02</span><span data-en="GPA calculation" data-ar="حساب المعدّل">GPA calculation</span></div>
+          <div class="mod"><span class="mk">03</span><span data-en="Reports &amp; dashboard" data-ar="تقارير ولوحة">Reports &amp; dashboard</span></div>
+          <div class="mod"><span class="mk">04</span><span data-en="Official letters" data-ar="خطابات رسمية">Official letters</span></div>
+          <div class="mod"><span class="mk">05</span><span data-en="Enrolment &amp; terms" data-ar="تسجيل وفصول">Enrolment &amp; terms</span></div>
+          <div class="mod"><span class="mk">06</span><span data-en="Notifications" data-ar="إشعارات">Notifications</span></div>
+        </div>
+        <div class="note" data-en="// preview — replace with a real screenshot when ready" data-ar="// معاينة — استبدلها بلقطة حقيقية لاحقاً">// preview — replace with a real screenshot when ready</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="system flip reveal">
+    <div class="info">
+      <span class="tag" data-en="Exports" data-ar="صادرات">Exports</span>
+      <h3 data-en="Export-Incentives Platform" data-ar="منصة حوافز الصادرات">Export-Incentives Platform</h3>
+      <p class="desc" data-en="A unified portal for submitting and tracking export-incentive requests — full review lifecycle, admin console, and KPI reporting." data-ar="بوابة موحّدة لتقديم ومتابعة طلبات حوافز الصادرات — دورة مراجعة كاملة، لوحة أدمن، وتقارير KPI.">A unified portal for submitting and tracking export-incentive requests — full review lifecycle, admin console, and KPI reporting.</p>
+      <ul class="role">
+        <li data-en="Led <b>requirements</b> and built the end-to-end workflow across <b>10 services</b>." data-ar="قدت <b>المتطلبات</b> وبنيت المسار الكامل عبر <b>10 خدمات</b>."><b>Led requirements</b> and built the end-to-end workflow across <b>10 services</b>.</li>
+        <li data-en="Multi-stage approval lifecycle: submitted → under review → returned → disbursed." data-ar="دورة موافقات متعددة المراحل: مُرسل → تحت الدراسة → مُعاد → مصروف.">Multi-stage approval lifecycle: submitted → under review → returned → disbursed.</li>
+        <li data-en="Replaced manual coordination with one governed system + live reporting." data-ar="استبدل التنسيق اليدوي بنظام واحد محوكم + تقارير حيّة.">Replaced manual coordination with one governed system + live reporting.</li>
+      </ul>
+      <div class="chips"><span class="chip">Apps Script</span><span class="chip">Sheets (DB)</span><span class="chip">Cloud storage</span><span class="chip">KPI dashboards</span><span class="chip">AI assistant</span></div>
+      <a class="cta" href="https://lgcrbahraelectric-source.github.io/LCGR.BAHRA/" target="_blank" rel="noopener"><span data-en="View live" data-ar="عرض مباشر">View live</span> <span class="arw">↗</span></a>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><i></i><i></i><i></i><span class="frame-url">lgcrbahraelectric-source.github.io/LCGR.BAHRA</span></div>
+      <!-- To use a real screenshot: replace this whole .shot div with  <img src="exports.png" alt="Export platform" style="width:100%;display:block"> -->
+      <div class="shot">
+        <div class="shot-h" data-en="Export Incentives — Support Desk" data-ar="حوافز الصادرات — مكتب الدعم">Export Incentives — Support Desk</div>
+        <div class="shot-s" data-en="10 services · request lifecycle · KPI" data-ar="10 خدمات · دورة الطلب · KPI">10 services · request lifecycle · KPI</div>
+        <div class="mods">
+          <div class="mod"><span class="mk">01</span><span data-en="Request intake (10 services)" data-ar="استقبال الطلبات (10 خدمات)">Request intake (10 services)</span></div>
+          <div class="mod"><span class="mk">02</span><span data-en="Approval lifecycle" data-ar="دورة الموافقات">Approval lifecycle</span></div>
+          <div class="mod"><span class="mk">03</span><span data-en="Admin console" data-ar="لوحة الأدمن">Admin console</span></div>
+          <div class="mod"><span class="mk">04</span><span data-en="Users &amp; roles" data-ar="المستخدمون والصلاحيات">Users &amp; roles</span></div>
+          <div class="mod"><span class="mk">05</span><span data-en="Reports &amp; KPI" data-ar="تقارير وKPI">Reports &amp; KPI</span></div>
+          <div class="mod"><span class="mk">06</span><span data-en="Live display board" data-ar="لوحة عرض حيّة">Live display board</span></div>
+        </div>
+        <div class="note" data-en="// preview — replace with a real screenshot when ready" data-ar="// معاينة — استبدلها بلقطة حقيقية لاحقاً">// preview — replace with a real screenshot when ready</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="system reveal">
+    <div class="info">
+      <span class="tag int" data-en="Maintenance · Internal" data-ar="صيانة · داخلي">Maintenance · Internal</span>
+      <h3 data-en="CMMS Deployment &amp; MMS Requirements" data-ar="تطبيق CMMS ومتطلبات MMS">CMMS Deployment &amp; MMS Requirements</h3>
+      <p class="desc" data-en="Led the rollout of eMaint CMMS across hospital and high-rise facilities, and ran requirements for a maintenance system at the airport." data-ar="قدت تطبيق نظام eMaint CMMS عبر مرافق مستشفيات وأبراج، وأدرت متطلبات نظام صيانة في المطار.">Led the rollout of eMaint CMMS across hospital and high-rise facilities, and ran requirements for a maintenance system at the airport.</p>
+      <ul class="role">
+        <li data-en="Requirements, configuration, and <b>UAT</b> of eMaint across Batterjee Group facilities." data-ar="المتطلبات، الإعداد، و<b>UAT</b> لنظام eMaint عبر مرافق مجموعة الطبري.">Requirements, configuration, and <b>UAT</b> of eMaint across Batterjee Group facilities.</li>
+        <li data-en="<b>~90%</b> reduction in paper work-orders; <b>100%</b> record digitization at the airport." data-ar="<b>~90%</b> تقليل أوامر العمل الورقية؛ <b>100%</b> رقمنة السجلات في المطار."><b>~90%</b> reduction in paper work-orders; <b>100%</b> record digitization at the airport.</li>
+        <li data-en="Managed vendor performance against defined KPIs." data-ar="أدرت أداء الموردين مقابل مؤشرات محددة.">Managed vendor performance against defined KPIs.</li>
+      </ul>
+      <div class="chips"><span class="chip">eMaint CMMS</span><span class="chip">IASS</span><span class="chip">KPI</span><span class="chip">Vendor mgmt</span></div>
+      <span class="cta ghost" data-en="Internal system — no public link" data-ar="نظام داخلي — لا يوجد رابط عام">Internal system — no public link</span>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><i></i><i></i><i></i><span class="frame-url" data-en="internal · eMaint CMMS" data-ar="داخلي · eMaint CMMS">internal · eMaint CMMS</span></div>
+      <div class="shot">
+        <div class="shot-h" data-en="Maintenance Operations" data-ar="عمليات الصيانة">Maintenance Operations</div>
+        <div class="shot-s" data-en="Batterjee facilities · Airport" data-ar="مرافق الطبري · المطار">Batterjee facilities · Airport</div>
+        <div class="mods">
+          <div class="mod"><span class="mk">01</span><span data-en="Work-order digitization" data-ar="رقمنة أوامر العمل">Work-order digitization</span></div>
+          <div class="mod"><span class="mk">02</span><span data-en="Asset &amp; PM scheduling" data-ar="جدولة الأصول والصيانة">Asset &amp; PM scheduling</span></div>
+          <div class="mod"><span class="mk">03</span><span data-en="KPI monitoring" data-ar="متابعة KPI">KPI monitoring</span></div>
+          <div class="mod"><span class="mk">04</span><span data-en="Vendor performance" data-ar="أداء الموردين">Vendor performance</span></div>
+        </div>
+        <div class="note" data-en="// internal system — not publicly hosted" data-ar="// نظام داخلي — غير منشور">// internal system — not publicly hosted</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="process">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="idx" style="color:var(--accent-lit)">02</span><h2 data-en="How I work" data-ar="طريقة عملي">How I work</h2><span class="ln"></span></div>
+    <div class="steps reveal">
+      <div class="step"><div class="n">01</div><div class="t" data-en="Discovery" data-ar="الاستكشاف">Discovery</div><div class="d" data-en="Sit with stakeholders, map the real operational need." data-ar="الجلوس مع أصحاب المصلحة وتحديد الاحتياج التشغيلي الحقيقي.">Sit with stakeholders, map the real operational need.</div></div>
+      <div class="step"><div class="n">02</div><div class="t" data-en="Requirements" data-ar="المتطلبات">Requirements</div><div class="d" data-en="BRD, user stories, As-Is / To-Be process maps." data-ar="BRD، قصص المستخدم، خرائط الحالة الحالية/المستهدفة.">BRD, user stories, As-Is / To-Be process maps.</div></div>
+      <div class="step"><div class="n">03</div><div class="t" data-en="Build" data-ar="البناء">Build</div><div class="d" data-en="Ship the system — web app, Sheets backend, automations." data-ar="بناء النظام — تطبيق ويب، قاعدة Sheets، أتمتة.">Ship the system — web app, Sheets backend, automations.</div></div>
+      <div class="step"><div class="n">04</div><div class="t">UAT</div><div class="d" data-en="Test with real users, fix against acceptance criteria." data-ar="اختبار مع مستخدمين حقيقيين وإصلاح وفق معايير القبول.">Test with real users, fix against acceptance criteria.</div></div>
+      <div class="step"><div class="n">05</div><div class="t" data-en="Go-live" data-ar="الإطلاق">Go-live</div><div class="d" data-en="Deploy, train users, monitor and iterate." data-ar="النشر، تدريب المستخدمين، المتابعة والتحسين.">Deploy, train users, monitor and iterate.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="wrap contact">
+  <div class="card-c reveal">
+    <div>
+      <span class="eyebrow" data-en="Open to Business Systems Analyst roles" data-ar="متاح لوظائف محلل نظم الأعمال">Open to Business Systems Analyst roles</span>
+      <h2 data-en="Let's talk systems." data-ar="نتكلم أنظمة.">Let's talk systems.</h2>
+      <p data-en="Industrial, facilities, or operations teams that need someone who can both scope the requirement and ship the tool." data-ar="فرق صناعية أو مرافق أو عمليات تحتاج شخصاً يحلّل المتطلب ويبني الأداة.">Industrial, facilities, or operations teams that need someone who can both scope the requirement and ship the tool.</p>
+    </div>
+    <div class="clist">
+      <a href="mailto:Baraa.k.alfarran@gmail.com"><span class="lbl" data-en="Email" data-ar="البريد">Email</span><span class="val">Baraa.k.alfarran@gmail.com</span></a>
+      <a href="tel:+966568696450"><span class="lbl" data-en="Phone" data-ar="الهاتف">Phone</span><span class="val">+966 56 869 6450</span></a>
+      <a href="https://www.linkedin.com/in/baraa-alfarran-98b0731b3" target="_blank" rel="noopener"><span class="lbl">LinkedIn</span><span class="val">baraa-alfarran ↗</span></a>
+      <span><span class="lbl" data-en="Based in" data-ar="المقر">Based in</span><span data-en="Jeddah, Saudi Arabia" data-ar="جدة، السعودية">Jeddah, Saudi Arabia</span></span>
+    </div>
+  </div>
+  <div class="foot">
+    <span data-en="© 2026 Baraa Khalid Alfarran" data-ar="© 2026 براء خالد الفرّان">© 2026 Baraa Khalid Alfarran</span>
+    <span data-en="Business Systems Analyst // defines &amp; builds" data-ar="محلل نظم أعمال // يحلّل ويبني">Business Systems Analyst // defines &amp; builds</span>
+  </div>
+</section>
+
+<script>
+  var LANG='en';
+  function toggleLang(){
+    LANG = LANG==='en' ? 'ar' : 'en';
+    var isAr = LANG==='ar';
+    document.documentElement.lang = LANG;
+    document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+    document.body.classList.toggle('ar', isAr);
+    document.getElementById('langBtn').textContent = isAr ? 'EN' : 'ع';
+    document.querySelectorAll('[data-ar]').forEach(function(el){
+      var v = el.getAttribute(isAr ? 'data-ar' : 'data-en');
+      if(v!==null) el.innerHTML = v;
+    });
+  }
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
